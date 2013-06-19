@@ -4,11 +4,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 #pragma comment(lib,"myutil.lib")
 
 extern _declspec (dllimport) std::string ws2s(const std::wstring& ws);
 extern _declspec (dllimport) std::wstring s2ws(const std::string& s);
+extern _declspec (dllimport) std::vector<std::string> splitString(const char* origin, const char* token);
 
 static const int NOT_FOUND_CONFIGFILE = 1;
 static const int CONFIG_NO_ERROR = 0;
@@ -25,14 +27,16 @@ public:
 	void showError();
 
 private:
-	char* m_onfig_file;
+	const char* m_onfig_file;
 
 	std::wstring generateConnStr();
 
+	void deleteCofigInfo();
+
 	typedef struct configNode
 	{
-         char* key;
-		 char* value;
+		 std::string key;
+		 std::string value;
 		 configNode* next;
 	};
 	

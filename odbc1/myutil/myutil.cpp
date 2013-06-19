@@ -35,10 +35,11 @@ std::wstring s2ws(const std::string& s)
 }
 
 std::vector<std::string> splitString(const char* origin, const char* token){
-	char* _s = (char*)malloc(sizeof(origin));
+	//临时变量,字符串真实长度应+1，终止符隐式存在
+	char* _s = (char*)malloc(strlen(origin)+1);
+	//将字符串拷贝到临时变量中
 	strcpy(_s,origin);
 	char* p  =strtok(_s,token);	
-	int i = 0;
 	std::vector<std::string> v1;
 	while (p)
 	{
@@ -46,6 +47,8 @@ std::vector<std::string> splitString(const char* origin, const char* token){
 		v1.push_back(tmp);
 		p=strtok(NULL,token);
 	}
+	//回收内存
+	free(_s);
     return v1;
 	
 }
