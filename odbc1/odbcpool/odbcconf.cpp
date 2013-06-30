@@ -20,13 +20,13 @@ odbcConf::odbcConf(const char* fileName)
 	m_conn_param.server="";
 	m_conn_param.uid="";
 	m_conn_str = L"";
-	
+
 
 }
 
 odbcConf::~odbcConf()
 {
-    deleteCofigInfo();
+	deleteCofigInfo();
 }
 
 void odbcConf::deleteCofigInfo(){
@@ -49,58 +49,58 @@ void odbcConf::deleteCofigInfo(){
 
 int odbcConf::configRead()
 {
-   
-   int rec = 0;
-   FILE* file = fopen(m_onfig_file,"r+");
-   if (!file)
-   {
-	   rec = NOT_FOUND_CONFIGFILE;
-	   return rec;
-   }
-   
-   std::ifstream fs(this->m_onfig_file);
-   //释放配置文件结构
-   deleteCofigInfo();
-   //是否到达文件尾部
-   std::string str_tmp;
-   while (!fs.eof())
-   { 
-	   std::getline(fs,str_tmp);
-	   if (str_tmp.find("=",0)==std::string::npos)
-	   {
-		   continue;
-	   }
-	   char* token = "=";
-	   const char* source = str_tmp.data();
-	   std::vector<std::string> v = splitString(source,token);
-	   if (m_config_head)
-	   {
-	      configNode* _node = new configNode();
-          _node->key = v[0];
-		  _node->value = v[1];
-		  _node->next = m_config_head;
-		  m_config_head = _node;
+
+	int rec = 0;
+	FILE* file = fopen(m_onfig_file,"r+");
+	if (!file)
+	{
+		rec = NOT_FOUND_CONFIGFILE;
+		return rec;
+	}
+
+	std::ifstream fs(this->m_onfig_file);
+	//释放配置文件结构
+	deleteCofigInfo();
+	//是否到达文件尾部
+	std::string str_tmp;
+	while (!fs.eof())
+	{ 
+		std::getline(fs,str_tmp);
+		if (str_tmp.find("=",0)==std::string::npos)
+		{
+			continue;
+		}
+		char* token = "=";
+		const char* source = str_tmp.data();
+		std::vector<std::string> v = splitString(source,token);
+		if (m_config_head)
+		{
+			configNode* _node = new configNode();
+			_node->key = v[0];
+			_node->value = v[1];
+			_node->next = m_config_head;
+			m_config_head = _node;
 
 
-	   }else
-	   {  
-          m_config_head = new configNode();
-		  m_config_head->key = v[0];
-		  m_config_head->value = v[1];
-		  m_config_head->next = NULL;
-	   }
-	   
-	   
+		}else
+		{  
+			m_config_head = new configNode();
+			m_config_head->key = v[0];
+			m_config_head->value = v[1];
+			m_config_head->next = NULL;
+		}
 
-   }
-   fclose(file);
-   fs.close();
-   rec = parseConfig();
-   if (rec==0)
-   {
-	  m_conn_str = generateConnStr();
-   }
-   return rec;
+
+
+	}
+	fclose(file);
+	fs.close();
+	rec = parseConfig();
+	if (rec==0)
+	{
+		m_conn_str = generateConnStr();
+	}
+	return rec;
 }
 
 //void odbcConf::showError()
@@ -108,6 +108,7 @@ int odbcConf::configRead()
 std::wstring odbcConf::generateConnStr()
 {
 	std::string connStr("");
+	connStr += m_conn_param.dsn;
 	connStr += m_conn_param.driver;
 	connStr += m_conn_param.server;
 	connStr += m_conn_param.uid;
@@ -131,7 +132,7 @@ int odbcConf::parseConfig(){
 	}
 	else if (node->key == "DSN")
 	{
-		m_conn_param.dsn = "DSN={" + node->value + "};";
+		m_conn_param.dsn = "DSN=" + node->value + ";";
 	}
 	else if (node->key == "SERVER")
 	{
@@ -170,13 +171,13 @@ int odbcConf::parseConfig(){
 	{
 		if (node->key == "TRUE" || node->key == "true")
 		{
-            m_conn_param.autocommit = true;
+			m_conn_param.autocommit = true;
 		}else if(node->key == "FALSE" || node->key == "false"){
-            m_conn_param.autocommit = false; 
+			m_conn_param.autocommit = false; 
 		} 
 	}else if (node->key == "LOGINTIMEOUT")
 	{
-        sscanf(node->value.c_str(),"%lf",&m_conn_param.logintimeout);
+		sscanf(node->value.c_str(),"%lf",&m_conn_param.logintimeout);
 	}else if (node->key == "CONNECTIONTIMEOUT")
 	{
 		sscanf(node->value.c_str(),"%lf",&m_conn_param.connectiontimeout);
@@ -184,7 +185,7 @@ int odbcConf::parseConfig(){
 	{
 		sscanf(node->value.c_str(),"%lf",&m_conn_param.querytimeout);
 	}
-   
+
 	while (NULL != node->next)
 	{
 		node = node->next;
@@ -194,7 +195,7 @@ int odbcConf::parseConfig(){
 		}
 		else if (node->key == "DSN")
 		{
-			m_conn_param.dsn = "DSN={" + node->value + "};";
+			m_conn_param.dsn = "DSN=" + node->value + ";";
 		}
 		else if (node->key == "SERVER")
 		{
@@ -248,7 +249,7 @@ int odbcConf::parseConfig(){
 			sscanf(node->value.c_str(),"%lf",&m_conn_param.querytimeout);
 		}
 	}
-	
+
 	return 0;
 
 }

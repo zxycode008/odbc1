@@ -4,16 +4,11 @@
 #include <Windows.h>
 #include <string>
 #include <vector>
+#include <stdio.h>
 
-#pragma comment(lib,"myutil.lib")
+
 
 using namespace std;
-
-extern _declspec (dllimport) string ws2s(const wstring& ws);
-extern _declspec (dllimport) wstring s2ws(const string& s);
-extern _declspec (dllimport) vector<string> splitString(const char* origin, const char* token);
-
-
 
 int main(){
 	
@@ -38,7 +33,13 @@ int main(){
 		cout<<"µÈÓÚ"<<endl;
 	}
 	delete str2;
-	system("pause");
+	cout<<oc->getConnStr()<<endl;
+	
     delete(oc);
+	wchar_t c = L'ÈË';
+	//setlocale(LC_ALL,"chs");
+	wcout.imbue(locale("chs"));
+    wcout<<c<<endl;
+	system("pause");
 	return 0;
 }

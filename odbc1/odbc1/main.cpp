@@ -92,7 +92,7 @@ void init(MyDBInfo* dbinfo){
 	//分配链接句柄
 	result = SQLAllocHandle(SQL_HANDLE_DBC,env,&dbc);
 
-
+    //StringLength参数，如果参数类型是整形设置为SQL_IS_INTEGER,是字符串长度或者SQL_NTS
 	result = SQLSetConnectAttr(dbc,SQL_LOGIN_TIMEOUT,(void*)30, 0);
 	result = SQLSetConnectAttr(dbc,SQL_ATTR_AUTOCOMMIT,SQL_AUTOCOMMIT_OFF, 0);
 
@@ -131,18 +131,29 @@ int main(){
   //检查是否有错
   showDBError();
   result = SQLExecute(stmt);
-  
+  SQLWCHAR cn[255];
+  short len1;
+  short datatype;
+  SQLUINTEGER size;
+  int closed;
+  result = SQLGetConnectAttr(dbc,SQL_ATTR_CONNECTION_DEAD,(SQLPOINTER)&closed, SQL_IS_INTEGER,0);
+  SQLDescribeCol(stmt,4,cn, 255,&len1, &datatype,&size,NULL,NULL);
   //拾取数据
   while (SQLFetch(stmt) != SQL_NO_DATA_FOUND)
   {
 	  SQLWCHAR name[32];
 	  SQLINTEGER len;
-	  SQLGetData(stmt,2,SQL_C_WCHAR,name,20,&len);
+	  SQLGetData(stmt,2,SQL_C_WCHAR,name,32,&len);
+	  wprintf(L"name = %s ", name);
+	  memset(name,'\0',sizeof(name));
+	  SQLGetData(stmt,4,SQL_C_WCHAR,name,32,&len);
 	  wprintf(L"name = %s \n", name);
   }
   //COMMIT 或者 ROLLBACK
   SQLEndTran(SQL_HANDLE_DBC,dbc,SQL_COMMIT);
+  SQLFreeHandle(SQL_HANDLE_STMT,stmt);
   close();
+
   system("pause");
   return 0;
 }

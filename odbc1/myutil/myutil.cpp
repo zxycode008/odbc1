@@ -52,3 +52,28 @@ std::vector<std::string> splitString(const char* origin, const char* token){
     return v1;
 	
 }
+
+//×Ö·û´®Ìæ»»
+std::string replaceAll(const char* src, const char* t, const char* _repstr)
+{
+	int _findpos = 0;
+	int _size = strlen(t);
+	char* _t = (char*)malloc(strlen(t)+1);
+	strcpy(_t, t);
+	char* repstr = (char*)malloc(strlen(_repstr)+1);
+	strcpy(repstr,_repstr);
+
+	std::string _str(src);
+	std::string& _str2 = _str;
+	_findpos = _str.find(t,_findpos);
+	while (_findpos != std::string::npos)
+	{
+		_str.replace(_findpos,_size,repstr);
+		_findpos = _str.find(t,_findpos);
+	}
+
+	free(_t);
+	free(repstr);
+	return _str;
+	
+}

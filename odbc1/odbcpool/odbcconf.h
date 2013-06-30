@@ -45,11 +45,11 @@ private:
 
 	typedef struct configNode
 	{
-		 std::string key;
-		 std::string value;
-		 configNode* next;
+		std::string key;
+		std::string value;
+		configNode* next;
 	};
-	
+
 	typedef struct conn_param
 	{
 		std::string driver;

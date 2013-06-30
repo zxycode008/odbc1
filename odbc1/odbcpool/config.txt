@@ -1,9 +1,7 @@
 DRIVER=MySQL ODBC 5.2 Unicode Driver
-DSN=mysql1
-SERVER=127.0.0.1:3306
+SERVER=127.0.0.1
 UID=root
 PWD=root
-CharSet=utf-8
 DATABASE=test
 MAXSIZE=50
 IDLESIZE=5

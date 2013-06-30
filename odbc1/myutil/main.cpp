@@ -18,6 +18,10 @@ int main(){
 	{
        cout<<string_arr[i]<<endl;
 	}
+	const char* src1= "fucke ttt yyyy ttt yyyy sudi ttt confrim";
+	const char* t2 = "ttt";
+	string rover = replaceAll(src1,t2,"kok");
+	cout<<rover<<endl;
 	system("pause");
 
 }
