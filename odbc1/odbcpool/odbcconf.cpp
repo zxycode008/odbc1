@@ -262,3 +262,4 @@ std::string odbcConf::getConnStr(){
 	std::wstring& connstr = m_conn_str;
 	return ws2s(connstr);
 }
+

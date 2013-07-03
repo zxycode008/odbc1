@@ -135,3 +135,29 @@
 2013-06-30 19:56:19 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
 2013-06-30 19:57:43 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
 2013-06-30 19:58:36 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-06-30 23:18:52 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-06-30 23:21:01 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-06-30 23:26:28 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-06-30 23:31:00 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 09:43:44 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:
+2013-07-01 09:43:44 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:92 LOG_INFO:[MySQL][ODBC 5.2(w) Driver]Can't connect to MySQL server on '127.0.0.1' (10061)
+2013-07-01 09:43:44 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:92 LOG_INFO:????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????¥è°§?????8?®§??◊R8??
+2013-07-01 09:43:44 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:92 LOG_INFO:????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????¥è°§?????8?®§??◊R8??
+2013-07-01 09:45:46 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 09:47:25 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 11:38:40 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 11:40:05 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 11:40:11 ERROR:FILE:g:\projects\c++project\odbc1\odbcpool\odbcdata.cpp LINE:245 LOG_INFO:getTime() string covert to double failed !
+2013-07-01 11:41:06 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 11:42:03 ERROR:FILE:g:\projects\c++project\odbc1\odbcpool\odbcdata.cpp LINE:245 LOG_INFO:getTime() string covert to double failed !
+2013-07-01 11:43:09 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 11:44:07 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 11:45:56 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 11:48:37 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 11:51:44 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 11:51:44 ERROR:FILE:g:\projects\c++project\odbc1\odbcpool\odbcdata.cpp LINE:153 LOG_INFO:string covert to int failed !
+2013-07-01 11:52:20 ERROR:FILE:g:\projects\c++project\odbc1\odbcpool\odbcdata.cpp LINE:153 LOG_INFO:string covert to int failed !
+2013-07-01 11:52:53 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 11:53:48 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-01 15:01:09 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 13:35:35 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:

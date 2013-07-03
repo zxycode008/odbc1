@@ -3,7 +3,7 @@
 #include <string>
 
 
-DBConnect::DBConnect(const char *connstr,struct stmt_option so, struct connect_option co)
+DBConnection::DBConnection(const char *connstr,struct stmt_option so, struct connect_option co)
 {
 	std::string s = connstr;
 	const std::string& s2 = s;
@@ -23,12 +23,12 @@ DBConnect::DBConnect(const char *connstr,struct stmt_option so, struct connect_o
     init();
 }
 
-DBConnect::~DBConnect()
+DBConnection::~DBConnection()
 {
   close();
 }
 
-void DBConnect::optionInit()
+void DBConnection::optionInit()
 {
 	this->connSet.connection_autocommt = SQL_AUTOCOMMIT_OFF;
 	this->connSet.connection_timeout = 30;
@@ -38,7 +38,7 @@ void DBConnect::optionInit()
 	this->stmtSet.query_timeout = 30;
 }
 
-void DBConnect::init()
+void DBConnection::init()
 {
 	optionInit();
 	//分配环境句柄
@@ -52,7 +52,7 @@ void DBConnect::init()
 	 //StringLength参数，如果参数类型是整形设置为SQL_IS_INTEGER,是字符串长度或者SQL_NTS
 	result = SQLSetConnectAttr(dbc,SQL_LOGIN_TIMEOUT,(void*)this->connSet.login_timeout, SQL_IS_INTEGER);
 	result = SQLSetConnectAttr(dbc,SQL_ATTR_CONNECTION_TIMEOUT,(void*)this->connSet.connection_timeout, SQL_IS_INTEGER);
-	result = SQLSetConnectAttr(dbc,SQL_ATTR_AUTOCOMMIT,this->connSet.connection_autocommt, SQL_IS_INTEGER);
+	result = SQLSetConnectAttr(dbc,SQL_ATTR_AUTOCOMMIT,(SQLPOINTER)this->connSet.connection_autocommt, SQL_IS_INTEGER);
     SQLSMALLINT outputlength;
 	result = SQLDriverConnect(dbc,NULL,m_connStr,SQL_NTS,m_connStrOut,255,&outputlength,SQL_DRIVER_NOPROMPT);
 	//result = SQLConnect(dbc,L"mysql1",SQL_NTS,L"root",SQL_NTS,L"root",SQL_NTS);
@@ -67,18 +67,21 @@ void DBConnect::init()
 	if (SQL_ERROR == result)
 	{
 		showDBCError(dbc);
+	}else{
+		_idle = true;
+	    enable = true;
 	}
 	
 
 
 }
 
-void DBConnect::showDBCError(SQLHDBC hdbc)
+void DBConnection::showDBCError(SQLHDBC hdbc)
 {
    showDBError(SQL_HANDLE_DBC,hdbc);
 }
 
-void DBConnect::showDBError(SQLSMALLINT type, SQLHANDLE sqlHandle)
+void DBConnection::showDBError(SQLSMALLINT type, SQLHANDLE sqlHandle)
 {
 	SQLWCHAR pstatus[10],pmsg[101];
 	SQLINTEGER sqlerr;
@@ -93,56 +96,92 @@ void DBConnect::showDBError(SQLSMALLINT type, SQLHANDLE sqlHandle)
 
 }
 
-void DBConnect::showDBSError(SQLHSTMT hstmt)
+void DBConnection::showDBSError(SQLHSTMT hstmt)
 {
     showDBError(SQL_HANDLE_STMT,hstmt);
 }
 
-void DBConnect::close()
+void DBConnection::close()
 {
 
 	//SQLFreeHandle(SQL_HANDLE_STMT,stmt);
 	SQLDisconnect(dbc);
 	SQLFreeHandle(SQL_HANDLE_DBC,dbc);
 	SQLFreeHandle(SQL_HANDLE_ENV,env);
+	enable = false;
 		
 }
 
 
-void DBConnect::executeQuery(const char* sql, OdbcDataMap* dm)
+void DBConnection::executeQuery(const char* sql, OdbcDataMap* dm)
 {
-	
+	_idle = false;
+	SQLHSTMT hstmt = NULL;
+	result = SQLAllocHandle(SQL_HANDLE_STMT,this->dbc,&hstmt);
+	if (result != SQL_SUCCESS)
+	{
+		showDBSError(hstmt);
+	}
+	std::string sqlstr = sql;
+	std::string& sqlstr2 = sqlstr;
+	std::wstring wsql =  s2ws(sqlstr2);
+	result = SQLExecDirect(hstmt,(SQLWCHAR*)wsql.c_str(),SQL_NTS);
+	if (result != SQL_SUCCESS)
+	{
+		showDBSError(hstmt);
+	}
+	SQLHSTMT& _hstmt = hstmt;
+	dm->init(hstmt);
+	SQLFreeHandle(SQL_HANDLE_STMT,hstmt);
+
+}
+
+void DBConnection::executeUpdate(const char* sql)
+{
+	_idle = false;
 	SQLHSTMT hstmt = NULL;
 	result = SQLAllocHandle(SQL_HANDLE_STMT,this->dbc,&hstmt);
 	std::string sqlstr = sql;
 	std::string& sqlstr2 = sqlstr;
 	std::wstring wsql =  s2ws(sqlstr2);
-	//int closed;
-	//SQLINTEGER length;
-	//result = SQLGetConnectAttr(dbc,SQL_ATTR_CONNECTION_DEAD,(SQLPOINTER)&closed,SQL_IS_UINTEGER,&length);
-	//if (result == SQL_SUCCESS)
-	//{
-	//	LogUtil* log = LogUtil::getlog();
-	//	log->log(LogUtil::L_DEBUG,"success!",DEBUG_TRACE_FILE_LINE_INFO);
-	//}
-	result = SQLExecDirect(hstmt,(SQLWCHAR*)L"select * from t1",SQL_NTS);
-	SQLHSTMT& _hstmt = hstmt;
-	dm->init(hstmt);
+	result = SQLExecDirect(hstmt,(SQLWCHAR*)wsql.c_str(),SQL_NTS);
+	
+	if (result != SQL_SUCCESS)
+	{
+		showDBSError(hstmt);
+	}
+	result = SQLEndTran(SQL_HANDLE_DBC,dbc,SQL_COMMIT);
+	if (result != SQL_SUCCESS)
+	{
+		showDBCError(dbc);
+	}
+	SQLFreeHandle(SQL_HANDLE_STMT,hstmt);
 }
 
-void DBConnect::executeUpdate(const char* sql)
-{
-
-}
-
-SQLHSTMT& DBConnect::getStatement(){
+SQLHSTMT& DBConnection::getStatement(){
 	
 	SQLHSTMT& _st = this->stmt;
 	return _st;
 }
 
-int DBConnect::checkConnectionState(){
+int DBConnection::checkConnectionState(){
 	int closed;
-	SQLGetConnectAttr(dbc,SQL_ATTR_CONNECTION_DEAD,(SQLPOINTER)&closed, SQL_IS_INTEGER,0);
-	return closed;
+	int res =  SQLGetConnectAttr(dbc,SQL_ATTR_CONNECTION_DEAD,(SQLPOINTER)&closed, SQL_IS_INTEGER,0);
+	return res;
 }
+
+bool DBConnection::isIdle()
+{
+   return _idle;
+}
+
+void DBConnection::free()
+{
+	 _idle = false;
+}
+
+bool DBConnection::canbeUsed()
+{
+	return enable;
+}
+

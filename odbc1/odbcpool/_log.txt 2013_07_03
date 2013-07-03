@@ -1,0 +1,17 @@
+2013-07-03 13:35:35 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:95 LOG_INFO:[MySQL][ODBC 5.2(w) Driver]Can't connect to MySQL server on '127.0.0.1' (10061)
+2013-07-03 13:35:35 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:95 LOG_INFO:????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????šQ??????@?%???@?$
+2013-07-03 13:35:35 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:95 LOG_INFO:????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????šQ??????@?%???@?$
+2013-07-03 18:58:25 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:42:56 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:44:32 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:44:32 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:44:32 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:44:32 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:44:32 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:44:32 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:48:19 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:48:19 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:48:19 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:48:19 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:48:19 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;
+2013-07-03 20:48:19 INFO:FILE:g:\projects\c++project\odbc1\odbcpool\odbcconect.cpp LINE:63 LOG_INFO:DRIVER={MySQL ODBC 5.2 Unicode Driver};UID=root;PWD=root;SERVER=127.0.0.1;DATABASE=test;

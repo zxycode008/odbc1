@@ -1,5 +1,4 @@
 #include "odbcdata.h"
-#include "odbc.h"
 
 
 OdbcDataMap::OdbcDataMap()
@@ -145,30 +144,110 @@ int OdbcDataMap::getInt(const char *columnName)
 	{
 		return 0;
 	}
-	return 1;
+	std::string str = m_it->second;
+	int v = 0;
+	int res = sscanf(str.c_str(),"%d", &v);
+	if (res == EOF)
+	{
+		LogUtil* log = LogUtil::getlog();
+		log->log(LogUtil::L_ERROR,"string covert to int failed !",DEBUG_TRACE_FILE_LINE_INFO);
+		return res;
+	}
+	return v;
 }
 
 long OdbcDataMap::getLong(const char* columnName)
 {
-	return 0;
+	std::map<std::string,std::string> record = *it;
+	std::string cn = columnName;
+	std::map<std::string,std::string>::iterator m_it;
+	m_it = record.find(cn);
+	if (m_it == record.end())
+	{
+		return 0;
+	}
+	std::string str = m_it->second;
+	long v = 0;
+	int res = sscanf(str.c_str(),"%ld", &v);
+	if (res == EOF)
+	{
+		LogUtil* log = LogUtil::getlog();
+		log->log(LogUtil::L_ERROR,"string covert to long failed !",DEBUG_TRACE_FILE_LINE_INFO);
+		return res;
+	}
+	return v;
 }
 
 
 double OdbcDataMap::getDouble(const char *columnName)
 {
-	return 0.0;
+	std::map<std::string,std::string> record = *it;
+	std::string cn = columnName;
+	std::map<std::string,std::string>::iterator m_it;
+	m_it = record.find(cn);
+	if (m_it == record.end())
+	{
+		return 0;
+	}
+	std::string str = m_it->second;
+	double v = 0;
+	int res = sscanf(str.c_str(),"%lf", &v);
+	if (res == EOF)
+	{
+		LogUtil* log = LogUtil::getlog();
+		log->log(LogUtil::L_ERROR,"string covert to double failed !",DEBUG_TRACE_FILE_LINE_INFO);
+		return res;
+	}
+	return v;
 }
 
 tm OdbcDataMap::getTimestamp(const char* columnName)
 {
-  tm t;
-   return t;
+  struct tm v;
+  LogUtil* log = LogUtil::getlog();
+  std::map<std::string,std::string> record = *it;
+  std::string cn = columnName;
+  std::map<std::string,std::string>::iterator m_it;
+  m_it = record.find(cn);
+  if (m_it == record.end())
+  {
+	  log->log(LogUtil::L_ERROR,"getTimestamp() not found columnName !",DEBUG_TRACE_FILE_LINE_INFO);
+  }
+  std::string str = m_it->second;
+  
+  int res = covert_string_to_tm(str.c_str(),&v);
+  if (res == EOF)
+  {
+	  log->log(LogUtil::L_ERROR,"getTimestamp() string covert to double failed !",DEBUG_TRACE_FILE_LINE_INFO);
+  }
+  return v;
 }
 
 TIME_STRUCT OdbcDataMap::getTime(const char *columnName)
 {
 
 	TIME_STRUCT time;
+	struct tm v;
+	LogUtil* log = LogUtil::getlog();
+	std::map<std::string,std::string> record = *it;
+	std::string cn = columnName;
+	std::map<std::string,std::string>::iterator m_it;
+	m_it = record.find(cn);
+	if (m_it == record.end())
+	{
+		log->log(LogUtil::L_ERROR,"getTime() not found columnName !",DEBUG_TRACE_FILE_LINE_INFO);
+	}
+	std::string str = m_it->second;
+
+	int res = covert_string_to_tm(str.c_str(),&v);
+	if (res == EOF)
+	{
+		log->log(LogUtil::L_ERROR,"getTime() string covert to time failed !",DEBUG_TRACE_FILE_LINE_INFO);
+	}else{
+		time.hour = v.tm_hour;
+		time.minute = v.tm_min;
+		time.second = v.tm_sec;
+	}
 	return time;
 
 }
@@ -176,5 +255,26 @@ TIME_STRUCT OdbcDataMap::getTime(const char *columnName)
 DATE_STRUCT OdbcDataMap::getDate(const char *columnName)
 {
 	DATE_STRUCT date;
+	struct tm v;
+	LogUtil* log = LogUtil::getlog();
+	std::map<std::string,std::string> record = *it;
+	std::string cn = columnName;
+	std::map<std::string,std::string>::iterator m_it;
+	m_it = record.find(cn);
+	if (m_it == record.end())
+	{
+		log->log(LogUtil::L_ERROR,"getDate() not found columnName !",DEBUG_TRACE_FILE_LINE_INFO);
+	}
+	std::string str = m_it->second;
+
+	int res = covert_string_to_tm(str.c_str(),&v);
+	if (res == EOF)
+	{
+		log->log(LogUtil::L_ERROR,"getDate() string covert to double failed !",DEBUG_TRACE_FILE_LINE_INFO);
+	}else{
+		date.day = v.tm_mday;
+		date.month = v.tm_mon;
+		date.year = v.tm_year;
+	}
 	return date;
 }

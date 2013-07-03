@@ -2,36 +2,44 @@
 #define _ODBC_POOL
 
 
-#include <Windows.h>
+#include "odbc.h"
+#include "odbconnect.h"
 #include <pthread.h>
 #include <iostream>
-//包含基本ODBC API的定义
-#include <sql.h>
-//包含扩展ODBC 的定义
-#include <sqlext.h>
-#include <sqltypes.h>
+#include <deque>
 #include "odbcconf.h"
 
-#ifndef DLL_API_EXPORT extern _declspec (dllexport)
-#define DLL_API_EXPORT extern _declspec (dllexport)
+#ifdef WIN32
+#include <Windows.h>
 #endif
 
-#ifndef MUTEX
-#define MUTEX pthread_mutex_t;
-#endif
+
+#pragma comment(lib, "pthreadVC2.lib")
+
 
 class DBCPool
 {
+public:
+    DBCPool(const char* configFile);
+	DBConnection* getConnection();
+	int LoadConfigFile(const char* configFile);
+	int getSize();
+    ~DBCPool();
 private:
-	static DBCPool* connPool;
+
+	std::deque<DBConnection*>  conns;
 	int m_curAmount;
 	int m_maxAmount;
 	int m_idleAmount;
-	odbcConf m_config;
-	MUTEX m_mutex;
-	DBCPool();
-	~DBCPool();
+	odbcConf* m_config;
+	pthread_mutex_t m_mutex;
+	
+	
+	void initDBCPool();
 	void TerminateConnection();
+	int DestoryConnection();
+	DBConnection* createConnection();
+	void retrieveConnection(DBConnection* conn);
 };
 
 #endif

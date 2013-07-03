@@ -6,13 +6,14 @@
 #endif
 
 #include <iostream>
+#include <sstream>
 #include <string>
 //包含基本ODBC API的定义
 #include <sql.h>
 //包含扩展ODBC 的定义
 #include <sqlext.h>
 #include <sqltypes.h>
-
+#include <time.h>
 #include "logutil.h"
 
 
@@ -40,5 +41,9 @@ std::string replaceAll(const char* src, const char* t, const char* _repstr);
 
 
 std::string wca2s(const wchar_t* src);
+
+int convert_string_to_time_t(const std::string & time_string, time_t* time);
+
+int covert_string_to_tm(const std::string & time_string, tm* timestamp);
 
 #endif

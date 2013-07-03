@@ -1,11 +1,7 @@
 #ifndef _ODBC_CONNECT
 #define _ODBC_CONNECT
 
-#ifdef _WIN32
-#include <Windows.h>
-#endif
-
-#include <iostream>
+#include "odbc.h"
 //包含基本ODBC API的定义
 #include <sql.h>
 //包含扩展ODBC 的定义
@@ -18,33 +14,10 @@
 
 
 
-#ifndef DLL_API_EXPORT extern _declspec (dllexport)
-#define DLL_API_EXPORT extern _declspec (dllexport)
-#endif
-
-#ifndef DLL_API_IMPORT extern _declspec (dllimport)
-#define DLL_API_IMPORT extern _declspec (dllimport)
-#endif
-
-
-#pragma comment(lib,"LogUtil.lib")
-
-
-#ifndef _MYUTIL
-#define _MYUTIL
-
-#pragma comment(lib,"myutil.lib")
-std::string ws2s(const std::wstring& ws);
-std::wstring s2ws(const std::string& s);
-std::vector<std::string> splitString(const char* origin, const char* token);
-std::string replaceAll(const char* src, const char* t, const char* _repstr);
-
-#endif
-
 //检查错误
 #define CHECKSTMTERROR(result,stmt) if (SQL_ERROR==result){showDBSError(stmt);}
 
-class DBConnect
+class DBConnection
 {
 	
 
@@ -53,7 +26,7 @@ public:
 	typedef struct {
 		//连接属性
 		//SQL_AUTOCOMMIT_OFF SQL_AUTOCOMMIT_ON
-		SQLPOINTER connection_autocommt;
+		unsigned long connection_autocommt;
 		int login_timeout;
 		int connection_timeout;
 	}connect_option;
@@ -69,8 +42,8 @@ public:
 
 	}stmt_option;
 
-	DBConnect(const char* connstr, struct stmt_option so, struct connect_option co);
-	~DBConnect();
+	DBConnection(const char* connstr, struct stmt_option so, struct connect_option co);
+	~DBConnection();
 
 	SQLHENV env;
 	//数据库连接句柄
@@ -91,6 +64,9 @@ public:
 	void endTransction();
 	SQLHSTMT& getStatement();
 	void close();
+	bool isIdle();
+	void free();
+	bool canbeUsed();
 
 private:
 
@@ -99,6 +75,8 @@ private:
 	SQLWCHAR m_connStrOut[255];
 	stmt_option stmtSet;
 	connect_option connSet;
+	bool _idle;
+	bool enable;
 
 
 

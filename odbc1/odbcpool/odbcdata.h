@@ -2,33 +2,14 @@
 #define _ODBC_DATAMAP
 
 
-#ifdef _WIN32
-#include <Windows.h>
-#endif
+#include "odbc.h"
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <map>
 #include <vector>
 #include <time.h>
-//包含基本ODBC API的定义
-#include <sql.h>
-//包含扩展ODBC 的定义
-#include <sqlext.h>
-#include <sqltypes.h>
-#include "logutil.h"
 
-
-#ifndef _MYUTIL
-#define _MYUTIL
-
-#pragma comment(lib,"myutil.lib")
-std::string ws2s(const std::wstring& ws);
-std::wstring s2ws(const std::string& s);
-std::vector<std::string> splitString(const char* origin, const char* token);
-std::string replaceAll(const char* src, const char* t, const char* _repstr);
-
-#endif
 
 
 class OdbcDataMap 
